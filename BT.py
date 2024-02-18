@@ -119,6 +119,9 @@ class BinaryTree:
     def create_adjacency_list(self):
         adjacency_list = {}
         self._create_adjacency_list_recursive(self.root, adjacency_list)
+        print("Adjacency List: ")
+        for key, value in adjacency_list.items():
+            print(key, value)
         return adjacency_list
     
     def _create_adjacency_list_recursive(self, current_node, adjacencyList):
@@ -130,6 +133,19 @@ class BinaryTree:
         adjacencyList[current_node.value] = (left_child_value, right_child_value)
         self._create_adjacency_list_recursive(current_node.left_child, adjacencyList)
         self._create_adjacency_list_recursive(current_node.right_child, adjacencyList)
+
+    # Depth First Search
+    def dfs(self):
+        result = []
+        self._dfs_recursive(self.root, result)
+        return result
+    
+    def _dfs_recursive(self, current_node, result):
+        if current_node is None:
+            return 
+        result.append(current_node.value)
+        self._dfs_recursive(current_node.left_child, result)
+        self._dfs_recursive(current_node.right_child, result)
             
 
 
@@ -170,9 +186,12 @@ tree.insert('i')
 tree.insert('h')
 tree.insert('j')
 tree.insert('k')
-print(tree.height())
+print(tree.height()) 
 print("BFS traversal: ", tree.bfs())
-print("Adjacency List: ", tree.create_adjacency_list())
+tree.create_adjacency_list()
+
+print("DFS traversal: ", tree.dfs())
+
 # tree.printLevelOrder()
 # tree.display()
 # tree.makelist()
